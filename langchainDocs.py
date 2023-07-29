@@ -9,7 +9,7 @@ from langchain.chains import RetrievalQA
 from langchain.document_loaders import DirectoryLoader
 
 # Create a new openai api key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 # set up openai api key
 openai_api_key = os.environ.get('OPENAI_API_KEY')
 
