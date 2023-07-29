@@ -9,12 +9,11 @@ from langchain.chains import RetrievalQA
 from langchain.document_loaders import DirectoryLoader
 
 # Create a new openai api key
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = "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"
 # set up openai api key
 openai_api_key = os.environ.get('OPENAI_API_KEY')
 
-from langchain.document_loaders import PyPDFLoader
-
+#from langchain.document_loaders import PyPDFLoader
 #loader = PyPDFLoader("documentos/TCC Erica Amoedo.pdf")
 #doc = loader.load()
 
@@ -85,12 +84,25 @@ qa_chain = RetrievalQA.from_chain_type(llm=turbo_llm,
                                   return_source_documents=True,
                                   verbose=True)
 # Cite sources
+"""
 def process_llm_response(llm_response):
     print(llm_response['result'])
     print('\n\nSources:')
     for source in llm_response["source_documents"]:
         print(source.metadata['source'])
+"""
 
+# Cite sources
+def process_llm_response(llm_response):
+    result = llm_response['result']
+    print(result)
+    
+    print('\n\nSources:')
+    sources = set()  # Use a set to avoid duplicate sources
+    for source in llm_response["source_documents"]:
+        sources.add(source.metadata['source'])
+    for source in sources:
+        print(source)
     
 query = "Quem é Erica Amoedo?"
 llm_response = qa_chain(query)
